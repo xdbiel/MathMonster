@@ -1,0 +1,7 @@
+{
+  "name": "jogo-plataforma-c-allegro",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "allegro5"
+  ]
+}
