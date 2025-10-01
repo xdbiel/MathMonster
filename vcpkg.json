@@ -2,6 +2,21 @@
   "name": "jogo-plataforma-c-allegro",
   "version-string": "0.1.0",
   "dependencies": [
-    "allegro5"
+    {
+      "name": "allegro5",
+      "features": [
+        "acodec",
+        "audio",
+        "color",
+        "font",
+        "image",
+        "main",
+        "native-dialog",
+        "physfs",
+        "primitives",
+        "ttf",
+        "video"
+      ]
+    }
   ]
 }
