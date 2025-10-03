@@ -23,12 +23,9 @@ int main() {
     ALLEGRO_BITMAP* icone = al_load_bitmap("logol.png");
     ALLEGRO_BITMAP* sprite_andar_esquerda = al_load_bitmap("personagem_movimento_esquerda.png");
     ALLEGRO_BITMAP* bg = al_load_bitmap("background.png");
-    ALLEGRO_FONT* font = al_load_ttf_font("joystix.ttf", 28, 0);
-    if (!font) {
-        fprintf(stderr, "Erro ao carregar a fonte 'Roboto-Regular.ttf'.\n");
-        al_destroy_display(display);
-        return -1;
-    }
+    ALLEGRO_FONT* font1 = al_load_ttf_font("joystix.ttf", 28, 0);
+    ALLEGRO_FONT* font2 = al_load_ttf_font("joystix.ttf", 18, 0);
+  
         al_set_display_icon(display, icone); 
         // eu nao sei porque nao fucnona esse comando e funciona so o de cima para colocar icon, perguntar depois, segundo o que pesquisei e o que está na documentacao do allegro 5.2 o certo seria esse>>>> al_set_window_icon(display, icone);
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0);
@@ -66,7 +63,8 @@ int main() {
         }
         al_clear_to_color(al_map_rgb(173, 216, 216));
         al_draw_bitmap(bg, 0, 0, 0);
-        al_draw_text(font, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, (ALTURA_TELA / 2) - (al_get_font_line_height(font) / 2), ALLEGRO_ALIGN_CENTER, "MOVIMENTACAO EM DESENVOLVIMENTO!!");
+        al_draw_text(font1, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, (ALTURA_TELA / 2) - (al_get_font_line_height(font1) / 2), ALLEGRO_ALIGN_CENTER, "MOVIMENTACAO EM DESENVOLVIMENTO!!");
+        al_draw_text(font2, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, (ALTURA_TELA / 4) - (al_get_font_line_height(font2) / 2), ALLEGRO_ALIGN_CENTER, "TENTE USAR SETA PARA DIREITA E SETA PARA ESQUERDA!");
         if (direcao_personagem == DIREITA) {
             al_draw_bitmap_region(sprite_andar_direita, 32 * (int)frame, current_frame_y, 32, 32, pos_x, pos_y, 0);
         }
@@ -79,7 +77,8 @@ int main() {
     al_destroy_bitmap(icone);
     al_destroy_bitmap(sprite_andar_direita);
     al_destroy_bitmap(sprite_andar_esquerda);
-    al_destroy_font(font);
+    al_destroy_font(font1);
+    al_destroy_font(font2);
     al_destroy_display(display);
     al_destroy_event_queue(event_queue);
      
