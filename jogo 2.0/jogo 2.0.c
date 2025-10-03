@@ -1,6 +1,7 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_image.h>
 #include <stdio.h>
 
 #define LARGURA_TELA 800
@@ -11,18 +12,20 @@ int main() {
     al_init();
     al_init_font_addon();
     al_init_ttf_addon();
-
+    al_init_image_addon();
     ALLEGRO_DISPLAY* display = al_create_display(800, 600);
     al_set_window_position(display, 300, 300);
     al_set_window_title(display,"Jogo de plataforma");
     
-
+    ALLEGRO_BITMAP* icone = al_load_bitmap("logoofc.png");
     ALLEGRO_FONT* font = al_load_ttf_font("joystix.ttf", 28, 0);
     if (!font) {
         fprintf(stderr, "Erro ao carregar a fonte 'Roboto-Regular.ttf'.\n");
         al_destroy_display(display);
         return -1;
     }
+        al_set_display_icon(display, icone); 
+        // eu nao sei porque nao fucnona esse comando e funciona so o de cima para colocar icon, perguntar depois, segundo o que pesquisei e o que está na documentacao do allegro 5.2 o certo seria esse>>>> al_set_window_icon(display, icone);
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0);
 
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
