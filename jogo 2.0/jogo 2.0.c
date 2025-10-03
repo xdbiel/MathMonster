@@ -65,8 +65,8 @@ int main() {
             frame = 0;
         }
         al_clear_to_color(al_map_rgb(173, 216, 216));
-        //remover o texto teste futuramente, al_draw_text(font, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, (ALTURA_TELA / 2) - (al_get_font_line_height(font) / 2), ALLEGRO_ALIGN_CENTER, "Jogo de plataforma");
         al_draw_bitmap(bg, 0, 0, 0);
+        al_draw_text(font, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, (ALTURA_TELA / 2) - (al_get_font_line_height(font) / 2), ALLEGRO_ALIGN_CENTER, "MOVIMENTACAO EM DESENVOLVIMENTO!!");
         if (direcao_personagem == DIREITA) {
             al_draw_bitmap_region(sprite_andar_direita, 32 * (int)frame, current_frame_y, 32, 32, pos_x, pos_y, 0);
         }
