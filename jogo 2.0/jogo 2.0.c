@@ -162,6 +162,9 @@ int main() {
         if (estado_atual == ANDANDO) {
             // Se ele está andando, fazemos o que já fazíamos antes:
             // verificamos a direção para desenhar o sprite de CAMINHADA correto.
+            frame += 0.08f; // Velocidade da caminhada
+            if (frame >= 6) frame = 0;
+
             if (direcao_personagem == DIREITA) {
                 al_draw_bitmap_region(sprite_andar_direita, 32 * (int)frame, 0, 32, 32, pos_x, pos_y, 0);
             }
@@ -173,6 +176,9 @@ int main() {
         else if (estado_atual == PARADO) {
             // Aqui, usamos os novos sprites que você carregou!
             // A lógica de animação com a variável 'frame' funcionará aqui também.
+            frame += 0.01f; // Pode ter uma velocidade mais lenta, fica mais natural
+            if (frame >= 4) frame = 0; // O LIMITE AQUI É 4!
+
             if (direcao_personagem == DIREITA) {
                 al_draw_bitmap_region(sprite_parado_direita, 32 * (int)frame, 0, 32, 32, pos_x, pos_y, 0);
             }
