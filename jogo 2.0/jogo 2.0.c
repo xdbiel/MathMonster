@@ -1,4 +1,4 @@
-#include <allegro5/allegro.h>
+ï»¿#include <allegro5/allegro.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_image.h>
@@ -10,20 +10,20 @@
 enum Direcao { ESQUERDA, DIREITA };
 enum EstadoPersonagem { PARADO, ANDANDO };
 int main() {
-
-    al_init();
-    al_init_font_addon();
-    al_init_ttf_addon();
-    al_init_image_addon();
-    al_install_keyboard();
+        // ---INICIAR OS ADDONS PARA UTILIZAR NO CODIGO----
+    al_init(); 
+    al_init_font_addon(); //addon fonte
+    al_init_ttf_addon(); //addon para fonte formato TTF
+    al_init_image_addon(); //addon para imagens
+    al_install_keyboard(); //addon para funcionalidades do tecladoâ‚¢
 
     ALLEGRO_DISPLAY* display = al_create_display(800, 600);
     al_set_window_position(display, 300, 300);
     al_set_window_title(display,"World traveler");
-    ALLEGRO_BITMAP* sprite_andar_direita = al_load_bitmap("personagem_movimento_direita.png");
+    ALLEGRO_BITMAP* sprite_andar_direita = al_load_bitmap("personagem_movimento_direita.png"); // AL BIT MAP  (CARREGAR AS IMAGENS PARA USALAS POSTERIORMENTE)
     ALLEGRO_BITMAP* icone = al_load_bitmap("logol.png");
     ALLEGRO_BITMAP* sprite_andar_esquerda = al_load_bitmap("personagem_movimento_esquerda.png");
-    ALLEGRO_BITMAP* bg = al_load_bitmap("background.png");
+    ALLEGRO_BITMAP* bg = al_load_bitmap("china1.png"); // CENARIO 1
     ALLEGRO_FONT* font1 = al_load_ttf_font("joystix.ttf", 28, 0);
     ALLEGRO_FONT* font2 = al_load_ttf_font("joystix.ttf", 18, 0);
     ALLEGRO_BITMAP* sprite_parado_direita = al_load_bitmap("personagem_parado_direita.png");
@@ -46,11 +46,11 @@ int main() {
     enum Direcao direcao_personagem = DIREITA;
     enum EstadoPersonagem estado_atual = PARADO;
 
-    float vel_y = 0.0f; // Velocidade vertical, começa em 0
-    const float GRAVIDADE = 0.5f; // Força da gravidade. Ajuste esse valor para uma queda mais rápida ou lenta.
+    float vel_y = 0.0f; // Velocidade vertical, comeÃ§a em 0
+    const float GRAVIDADE = 0.5f; // ForÃ§a da gravidade. Ajuste esse valor para uma queda mais rÃ¡pida ou lenta.
 
-    const float FORCA_PULO = -8.0f; // A força do pulo. É NEGATIVA porque o eixo Y cresce para baixo.
-    bool esta_no_chao = false;       // Começa como 'falso' porque o personagem começa caindo.
+    const float FORCA_PULO = -8.0f; // A forÃ§a do pulo. Ã‰ NEGATIVA porque o eixo Y cresce para baixo.
+    bool esta_no_chao = false;       // ComeÃ§a como 'falso' porque o personagem comeÃ§a caindo.
 
     bool tecla_direita_pressionada = false;
     bool tecla_esquerda_pressionada = false;
@@ -64,7 +64,7 @@ int main() {
         if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             break;
         }
-        // Verificamos se o evento é de uma tecla SENDO PRESSIONADA
+        // Verificamos se o evento Ã© de uma tecla SENDO PRESSIONADA
         else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
 
             // Agora, aqui dentro, verificamos QUAL tecla foi
@@ -77,7 +77,7 @@ int main() {
              
             }
          
-            // O pulo também é um evento de tecla pressionada
+            // O pulo tambÃ©m Ã© um evento de tecla pressionada
             else if (event.keyboard.keycode == ALLEGRO_KEY_UP) { // Usando a seta para cima para pular
                 if (esta_no_chao) {
                     vel_y = FORCA_PULO;
@@ -85,7 +85,7 @@ int main() {
                 }
             }
         }
-        // Verificamos se o evento é de uma tecla SENDO SOLTA
+        // Verificamos se o evento Ã© de uma tecla SENDO SOLTA
         else if (event.type == ALLEGRO_EVENT_KEY_UP) {
 
             if (event.keyboard.keycode == ALLEGRO_KEY_RIGHT) {
@@ -94,8 +94,8 @@ int main() {
             else if (event.keyboard.keycode == ALLEGRO_KEY_LEFT) {
                 tecla_esquerda_pressionada = false;
             }
-            // --- LÓGICA DE MOVIMENTO CONTÍNUO E ESTADO ---
-// Esta seção roda 60 vezes por segundo
+            // --- LÃ“GICA DE MOVIMENTO CONTÃNUO E ESTADO ---
+// Esta seÃ§Ã£o roda 60 vezes por segundo
 
 // Se QUALQUER tecla de movimento estiver pressionada
             
@@ -113,7 +113,7 @@ int main() {
                 direcao_personagem = ESQUERDA;
             }
         }
-        // SENÃO (se nenhuma tecla de movimento estiver pressionada)
+        // SENÃƒO (se nenhuma tecla de movimento estiver pressionada)
         else {
             estado_atual = PARADO;
         }
@@ -124,27 +124,27 @@ int main() {
         if (frame >= 6) {
             frame = 0;
         }
-        // --- LÓGICA DE MOVIMENTO CONTÍNUO (baseado no estado das teclas) ---
-// Esta seção roda 60 vezes por segundo, lendo o estado dos "interruptores"
+        // --- LÃ“GICA DE MOVIMENTO CONTÃNUO (baseado no estado das teclas) ---
+// Esta seÃ§Ã£o roda 60 vezes por segundo, lendo o estado dos "interruptores"
 
         
-        // --- LÓGICA DA GRAVIDADE ---
+        // --- LÃ“GICA DA GRAVIDADE ---
         // 1. A gravidade afeta a velocidade vertical
         vel_y += GRAVIDADE;
 
-        // 2. A velocidade vertical afeta a posição do personagem
+        // 2. A velocidade vertical afeta a posiÃ§Ã£o do personagem
         pos_y += vel_y;
         // -------------------------
 
-        // --- LÓGICA DE DESENHO ---
+        // --- LÃ“GICA DE DESENHO ---
         pos_y += vel_y;
 
-        // --- CHÃO PROVISÓRIO ---
-        // Se o personagem atingir ou passar da altura do chão (ex: 400 pixels)
+        // --- CHÃƒO PROVISÃ“RIO ---
+        // Se o personagem atingir ou passar da altura do chÃ£o (ex: 400 pixels)
         if (pos_y >= 400) {
             vel_y = 0;    // Zera a velocidade vertical para ele parar de acelerar
-            pos_y = 400;  // Garante que ele fique exatamente no chão, e não um pouco abaixo
-            esta_no_chao = true; // NOVO: Agora o programa sabe que o personagem está no chão
+            pos_y = 400;  // Garante que ele fique exatamente no chÃ£o, e nÃ£o um pouco abaixo
+            esta_no_chao = true; // NOVO: Agora o programa sabe que o personagem estÃ¡ no chÃ£o
         }
         // ----------------------
         // ADICIONE ESTA LINHA PARA DEPURAR
@@ -156,12 +156,12 @@ int main() {
         al_draw_bitmap(bg, 0, 0, 0);
         al_draw_text(font1, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, (ALTURA_TELA / 2) - (al_get_font_line_height(font1) / 2), ALLEGRO_ALIGN_CENTER, "MOVIMENTACAO EM DESENVOLVIMENTO!!");
         al_draw_text(font2, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, (ALTURA_TELA / 4) - (al_get_font_line_height(font2) / 2), ALLEGRO_ALIGN_CENTER, "TENTE USAR SETA PARA DIREITA E SETA PARA ESQUERDA!");
-        // --- LÓGICA DE DESENHO DO PERSONAGEM ---
+        // --- LÃ“GICA DE DESENHO DO PERSONAGEM ---
 
-// PRIMEIRO, verificamos se o personagem está ANDANDO
+// PRIMEIRO, verificamos se o personagem estÃ¡ ANDANDO
         if (estado_atual == ANDANDO) {
-            // Se ele está andando, fazemos o que já fazíamos antes:
-            // verificamos a direção para desenhar o sprite de CAMINHADA correto.
+            // Se ele estÃ¡ andando, fazemos o que jÃ¡ fazÃ­amos antes:
+            // verificamos a direÃ§Ã£o para desenhar o sprite de CAMINHADA correto.
             frame += 0.08f; // Velocidade da caminhada
             if (frame >= 6) frame = 0;
 
@@ -172,21 +172,21 @@ int main() {
                 al_draw_bitmap_region(sprite_andar_esquerda, 32 * (int)frame, 0, 32, 32, pos_x, pos_y, 0);
             }
         }
-        // SENÃO, se o personagem estiver PARADO
+        // SENÃƒO, se o personagem estiver PARADO
         else if (estado_atual == PARADO) {
-            // Aqui, usamos os novos sprites que você carregou!
-            // A lógica de animação com a variável 'frame' funcionará aqui também.
+            // Aqui, usamos os novos sprites que vocÃª carregou!
+            // A lÃ³gica de animaÃ§Ã£o com a variÃ¡vel 'frame' funcionarÃ¡ aqui tambÃ©m.
             frame += 0.01f; // Pode ter uma velocidade mais lenta, fica mais natural
-            if (frame >= 4) frame = 0; // O LIMITE AQUI É 4!
+            if (frame >= 4) frame = 0; // O LIMITE AQUI Ã‰ 4!
 
             if (direcao_personagem == DIREITA) {
                 al_draw_bitmap_region(sprite_parado_direita, 32 * (int)frame, 0, 32, 32, pos_x, pos_y, 0);
             }
             else {
-                // Se quiser usar a inversão por código que conversamos, seria aqui:
+                // Se quiser usar a inversÃ£o por cÃ³digo que conversamos, seria aqui:
                 // al_draw_bitmap_region(sprite_parado_direita, 32 * (int)frame, 0, 32, 32, pos_x, pos_y, ALLEGRO_FLIP_HORIZONTAL);
 
-                // Ou usando o segundo arquivo que você carregou:
+                // Ou usando o segundo arquivo que vocÃª carregou:
                 al_draw_bitmap_region(sprite_parado_esquerda, 32 * (int)frame, 0, 32, 32, pos_x, pos_y, 0);
             }
         }
