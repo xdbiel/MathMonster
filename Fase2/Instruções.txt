@@ -1,0 +1,15 @@
+>----------------------- INSTRUCOES ------------------------<
+
+ARQUIVO DA FASE 2 ANTIGO, EDITAR A ''NOVA'' FASE 2 DIRETAMENTE NO
+DIRETÓRIO main.c 
+
+o main.c está com o nome de jogo 2.0.c, para editar basta seguir os
+seguintes passos:
+
+1 - abrir e editar em um arquivo do visual studio separado do main o seu arquivo
+fase2.c
+
+2- após finalizar as alterações, copiar o código, e colar dentro do arquivo fase2.c dentro do
+jogo 2.0.sln
+
+3 IMPORANTE, lembre de quando for implementar seu código na funcao main() sempre fazer pelo jogo 2.0.sln

@@ -149,12 +149,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Fase1\fase1.h" />
+    <ClInclude Include="..\Menu\menu.h" />
+    <ClInclude Include="fase2.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="jogo 2.0.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Fase1\fase1.c" />
+    <ClCompile Include="..\Menu\menu.c" />
+    <ClCompile Include="fase2.c" />
     <ClCompile Include="jogo 2.0.c" />
   </ItemGroup>
   <ItemGroup>

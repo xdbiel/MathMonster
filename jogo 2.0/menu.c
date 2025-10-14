@@ -29,8 +29,7 @@ void processar_teclado(ALLEGRO_EVENT* evento, MenuEstado* estado_menu, Botao* bo
 int executar_acao_menu(MenuEstado estado_menu);
 void inicializar_botoes(Botao* botao_jogar, Botao* botao_sair, MenuEstado estado_inicial);
 
-// TROCADO O MAIN () POR UMA FUNCAO DO TIPO INTEIRO, USADO O TIPO ''INT'' POIS O MAIN PRECISA SABER QUANDO TROCAR DE TELA E PARA ISSO ATRIBUIMOS UM RETURN COM 0 OU 1 POR EXEMPLO
-// ACREDITO QUE EU TENHA QUE POLIR MAIS UM POUCO ESSE CODIGO PARA SE ADAPATAR MELHOR AO QUE EU QUERO, MAS JA ESTA FUNCIONANDO
+// Em menu.c, SUBSTITUA a antiga int main() por esta:
 
 int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_FONT* font, ALLEGRO_TIMER* timer) {
     
