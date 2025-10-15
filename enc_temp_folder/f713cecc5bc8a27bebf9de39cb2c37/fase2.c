@@ -178,7 +178,10 @@ void run_fase2_screen(ALLEGRO_DISPLAY* display) {
                 al_draw_bitmap_region(sprite_parado_direita, 32 * (int)frame, 0, 32, 32, pos_x, pos_y, 0);
             }
             else {
-                
+                // Se quiser usar a inversão por código que conversamos, seria aqui:
+                // al_draw_bitmap_region(sprite_parado_direita, 32 * (int)frame, 0, 32, 32, pos_x, pos_y, ALLEGRO_FLIP_HORIZONTAL);
+
+                // Ou usando o segundo arquivo que você carregou:
                 al_draw_bitmap_region(sprite_parado_esquerda, 32 * (int)frame, 0, 32, 32, pos_x, pos_y, 0);
             }
         }
