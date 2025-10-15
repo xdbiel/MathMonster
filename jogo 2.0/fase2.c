@@ -11,7 +11,7 @@ enum Direcao { ESQUERDA, DIREITA };
 enum EstadoPersonagem { PARADO, ANDANDO };
 
 void run_fase2_screen(ALLEGRO_DISPLAY* display) {
-    // ---INICIAR OS ADDONS PARA UTILIZAR NO CODIGO----
+    //iniciar addons
     al_init();
     al_init_font_addon(); //addon fonte
     al_init_ttf_addon(); //addon para fonte formato TTF
@@ -19,7 +19,7 @@ void run_fase2_screen(ALLEGRO_DISPLAY* display) {
     al_install_keyboard(); //addon para funcionalidades do teclado₢
 
     al_set_window_position(display, 300, 300);
-    al_set_window_title(display, "World traveler");
+    al_set_window_title(display, "Math Monster");
     ALLEGRO_BITMAP* sprite_andar_direita = al_load_bitmap("personagem_movimento_direita.png"); // AL BIT MAP  (CARREGAR AS IMAGENS PARA USALAS POSTERIORMENTE)
     ALLEGRO_BITMAP* icone = al_load_bitmap("logol.png");
     ALLEGRO_BITMAP* sprite_andar_esquerda = al_load_bitmap("personagem_movimento_esquerda.png");
@@ -158,7 +158,7 @@ void run_fase2_screen(ALLEGRO_DISPLAY* display) {
 
         if (estado_atual == ANDANDO) {
             
-            frame += 0.08f; // Velocidade da caminhada
+            frame += 0.08f; // velocidade de mov
             if (frame >= 6) frame = 0;
 
             if (direcao_personagem == DIREITA) {

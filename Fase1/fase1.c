@@ -17,7 +17,7 @@ enum EstadoPersonagem { PARADO, ANDANDO };
 
 
     al_set_window_position(display, 300, 300);
-    al_set_window_title(display, "World traveler");
+    al_set_window_title(display, "Math Monster");
     ALLEGRO_BITMAP* sprite_andar_direita = al_load_bitmap("personagem_movimento_direita.png"); // AL BIT MAP  (CARREGAR AS IMAGENS PARA USALAS POSTERIORMENTE)
     ALLEGRO_BITMAP* icone = al_load_bitmap("logol.png");
     ALLEGRO_BITMAP* sprite_andar_esquerda = al_load_bitmap("personagem_movimento_esquerda.png");

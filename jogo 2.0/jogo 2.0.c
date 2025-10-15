@@ -10,6 +10,8 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 
 #include "menu.h"
@@ -35,6 +37,10 @@ int main() {
     al_init_image_addon();
     al_install_keyboard();
     al_init_primitives_addon();
+    al_install_mouse(); 
+    al_install_audio();
+    al_init_acodec_addon(); 
+    al_reserve_samples(10); 
 
 
     ALLEGRO_DISPLAY* display = al_create_display(800, 600);
@@ -53,6 +59,7 @@ int main() {
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
+    al_register_event_source(event_queue, al_get_mouse_event_source());
 
     al_start_timer(timer);
 
@@ -69,10 +76,10 @@ int main() {
             
             case TELA_INICIAL: {
                 int escolha_menu = run_menu_screen(display, event_queue, font_principal, timer);
-
-                if (escolha_menu == 1) { // 1 = JOGAR
-                    estado_atual_do_jogo = FASE_1; // Muda o estado para a fase )1
-                } else { // 2 = SAIR ou fechou a janela
+                al_stop_samples();
+                if (escolha_menu == 1) { // 1 = jogar
+                    estado_atual_do_jogo = FASE_1; // altera apra a fase 1
+                } else { // 2 = sair
                     rodando = false; 
                 }
                 break;
@@ -80,12 +87,12 @@ int main() {
 
             
             case FASE_1: { 
-                // Chama a função da fase 1 e GUARDA o resultado que ela retorna
+              
                 int resultado_fase1 = run_fase1_screen(display);
 
             
-                if (resultado_fase1 == 1) { // 1 significa "Passou de Fase"
-                    estado_atual_do_jogo = FASE_2; // MUDA O ESTADO PARA A PRÓXIMA FASE!
+                if (resultado_fase1 == 1) { // 1 = passar de fase
+                    estado_atual_do_jogo = FASE_2; //altera para a fase 2
                 }
                 else { 
                     rodando = false; 
@@ -93,7 +100,7 @@ int main() {
                 break;
             }
 
-            // Aqui entrariam as outras fases
+            // é necessario implementar a fase 3 aqui futuramente
             case FASE_2:
                 printf("BEM-VINDO À FASE 2!\n");
                 run_fase2_screen(display); 
