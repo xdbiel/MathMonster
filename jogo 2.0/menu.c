@@ -31,7 +31,7 @@ void inicializar_botoes(Botao* botao_jogar, Botao* botao_sair, MenuEstado estado
 
 // Em menu.c, SUBSTITUA a antiga int main() por esta:
 
-int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_FONT* font, ALLEGRO_TIMER* timer) {
+int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_FONT* font, ALLEGRO_TIMER* timer, ALLEGRO_BITMAP* cursor_img); {
     
     Botao botao_jogar, botao_sair;
     MenuEstado estado_menu = MENU_JOGAR;

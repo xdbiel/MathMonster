@@ -161,7 +161,7 @@
     <ClCompile Include="..\Fase1\fase1.c" />
     <ClCompile Include="..\Menu\menu.c" />
     <ClCompile Include="fase2.c" />
-    <ClCompile Include="jogo 2.0.c" />
+    <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="jogo 2.0.rc" />

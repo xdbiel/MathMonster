@@ -44,6 +44,14 @@ int main() {
 
 
     ALLEGRO_DISPLAY* display = al_create_display(800, 600);
+    ALLEGRO_BITMAP* imagem_cursor = al_load_bitmap("cursor.png");
+
+  
+
+    // esconde o cursordo sistema operacional
+    al_hide_mouse_cursor(display);
+
+
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0);
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
 
@@ -68,19 +76,21 @@ int main() {
 
     enum GameState estado_atual_do_jogo = TELA_INICIAL; // variavel que controla qual tela estamos
     bool rodando = true;
-
+    int mouse_x = 0, mouse_y = 0;
     while (rodando) {
+
+
         //usei o switch para decidir com qual funcao vou ''trabalahar'' qual funcao vai ser exibida na tela
         switch (estado_atual_do_jogo) {
 
             
             case TELA_INICIAL: {
-                int escolha_menu = run_menu_screen(display, event_queue, font_principal, timer);
+                int escolha_menu = run_menu_screen(display, event_queue, font_principal, timer, imagem_cursor);
                 al_stop_samples();
-                if (escolha_menu == 1) { // 1 = jogar
+               if (escolha_menu == 1) { // 1 = jogar
                     estado_atual_do_jogo = FASE_1; // altera apra a fase 1
                 } else { // 2 = sair
-                    rodando = false; 
+                   rodando = false; 
                 }
                 break;
             }
@@ -118,6 +128,7 @@ int main() {
     al_destroy_display(display);
     al_destroy_timer(timer);
     al_destroy_event_queue(event_queue);
+    al_destroy_bitmap(imagem_cursor);
 
     return 0;
 }

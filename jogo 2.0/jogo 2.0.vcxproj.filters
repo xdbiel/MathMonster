@@ -38,7 +38,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="jogo 2.0.c">
+    <ClCompile Include="main.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="..\Menu\menu.c">

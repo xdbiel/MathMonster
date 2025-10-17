@@ -39,7 +39,8 @@ void inicializar_botoes(Botao* b_jogar, Botao* b_opcoes, Botao* b_sair, MenuEsta
 // TROCADO O MAIN () POR UMA FUNCAO DO TIPO INTEIRO, USADO O TIPO ''INT'' POIS O MAIN PRECISA SABER QUANDO TROCAR DE TELA E PARA ISSO ATRIBUIMOS UM RETURN COM 0 OU 1 POR EXEMPLO
 // ACREDITO QUE EU TENHA QUE POLIR MAIS UM POUCO ESSE CODIGO PARA SE ADAPATAR MELHOR AO QUE EU QUERO, MAS JA ESTA FUNCIONANDO
 
-int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_FONT* font, ALLEGRO_TIMER* timer) {
+int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_FONT* font, ALLEGRO_TIMER* timer, ALLEGRO_BITMAP* cursor_img) {
+    int mouse_x = 0, mouse_y = 0;
     al_set_window_title(display, "Math Monster");
     ALLEGRO_SAMPLE* musica_fundo = al_load_sample("musica_menu.ogg");
     ALLEGRO_BITMAP* background_menu = al_load_bitmap("menu_background.png");
@@ -49,6 +50,7 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
     ALLEGRO_BITMAP* img_sair_selecionado = al_load_bitmap("botao_sair_selecionado.png");
     ALLEGRO_BITMAP* img_opcoes_normal = al_load_bitmap("botao_opcoes_normal.png");
     ALLEGRO_BITMAP* img_opcoes_selecionado = al_load_bitmap("botao_opcoes_selecionado.png");
+    ALLEGRO_BITMAP* icone = al_load_bitmap("logol.png");
     if (!musica_fundo) {
         fprintf(stderr, "Erro ao carregar a amostra de áudio 'musica_menu.ogg'\n");
         // apenas para resolver o erro de acarregamento da musiva( apagar futuramente0
@@ -58,7 +60,7 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
         al_play_sample(musica_fundo, 0.05, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
         //usado o 0.05 de volume, quanto mais maior o som e quanto menos menor o som
     }
-
+    al_set_display_icon(display, icone);
     Botao botao_jogar, botao_opcoes, botao_sair; 
     MenuEstado estado_menu = MENU_JOGAR;
     inicializar_botoes(&botao_jogar, &botao_opcoes, &botao_sair, estado_menu,
@@ -78,20 +80,24 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
 
         switch (evento.type) {
 
+            // Coloque este bloco dentro do seu switch, junto com os outros 'case'
+
         case ALLEGRO_EVENT_MOUSE_AXES:
-            // verifica se o mouse esta sobre o botao jogar 
+            // Primeiro, atualizamos as coordenadas do cursor para o desenho manual
+            mouse_x = evento.mouse.x;
+            mouse_y = evento.mouse.y;
+
+            // Agora, fazemos a lógica de "hover" que você já tinha
             if (evento.mouse.x >= botao_jogar.x && evento.mouse.x <= botao_jogar.x + botao_jogar.largura &&
                 evento.mouse.y >= botao_jogar.y && evento.mouse.y <= botao_jogar.y + botao_jogar.altura)
             {
                 estado_menu = MENU_JOGAR;
             }
-            // verifica se o mouse esta sobre o botao opcao 
             else if (evento.mouse.x >= botao_opcoes.x && evento.mouse.x <= botao_opcoes.x + botao_opcoes.largura &&
                 evento.mouse.y >= botao_opcoes.y && evento.mouse.y <= botao_opcoes.y + botao_opcoes.altura)
             {
                 estado_menu = MENU_OPCOES;
             }
-            // verifica se o mouse esta sobre o botao sair
             else if (evento.mouse.x >= botao_sair.x && evento.mouse.x <= botao_sair.x + botao_sair.largura &&
                 evento.mouse.y >= botao_sair.y && evento.mouse.y <= botao_sair.y + botao_sair.altura)
             {
@@ -99,14 +105,14 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
             }
             else
             {
-                estado_menu = MENU_NENHUM; // feito para remover o efeito de hover do botao quando o mouse nao estiver mais sobre o botao selecionado
+                estado_menu = MENU_NENHUM;
             }
 
-			// muda o estado dos botoes com base no estado_menu
+            // E por fim, atualizamos o estado visual de todos os botões
             botao_jogar.selecionado = (estado_menu == MENU_JOGAR);
             botao_opcoes.selecionado = (estado_menu == MENU_OPCOES);
             botao_sair.selecionado = (estado_menu == MENU_SAIR);
-            break;
+            break; // Apenas um break no final de todo o bloco
         case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
             // verificador de clique
             if (estado_menu == MENU_JOGAR) {
@@ -131,7 +137,7 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
             case ALLEGRO_EVENT_TIMER:
                 redesenhar = 1;
                 break;
-
+           
             case ALLEGRO_EVENT_KEY_DOWN:
                 processar_teclado(&evento, &estado_menu, &botao_jogar, &botao_opcoes, &botao_sair);
 
@@ -148,6 +154,7 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
         if (redesenhar && al_is_event_queue_empty(event_queue)) {
             redesenhar = 0;
             desenhar_menu(background_menu, font, &botao_jogar, &botao_opcoes, &botao_sair);
+            al_draw_bitmap(cursor_img, mouse_x, mouse_y, 0);
             al_flip_display();
         }
         
@@ -164,6 +171,7 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
     al_destroy_bitmap(img_jogar_selecionado);
     al_destroy_bitmap(img_opcoes_normal);
     al_destroy_bitmap(img_opcoes_selecionado);
+    al_destroy_bitmap(icone);
     return 2; 
 }
 
