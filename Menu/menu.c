@@ -41,7 +41,7 @@ void inicializar_botoes(Botao* b_jogar, Botao* b_opcoes, Botao* b_sair, MenuEsta
 
 int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_FONT* font, ALLEGRO_TIMER* timer, ALLEGRO_BITMAP* cursor_img) {
     int mouse_x = 0, mouse_y = 0;
-    al_set_window_title(display, "Math Monster");
+    al_set_window_title(display, "MathMonster");
     ALLEGRO_SAMPLE* musica_fundo = al_load_sample("musica_menu.ogg");
     ALLEGRO_BITMAP* background_menu = al_load_bitmap("menu_background.png");
     ALLEGRO_BITMAP* img_jogar_normal = al_load_bitmap("botao_jogar_normal.png");
