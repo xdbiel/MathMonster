@@ -57,8 +57,8 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
     }
     else {
         // tocar a musica em loop
-        al_play_sample(musica_fundo, 0.05, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
-        //usado o 0.05 de volume, quanto mais maior o som e quanto menos menor o som
+        al_play_sample(musica_fundo, 0.4, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
+        //usado o 0.05 de volume, quanto maior o valor, maior o som e quanto menor o valor, menor o som
     }
     al_set_display_icon(display, icone);
     Botao botao_jogar, botao_opcoes, botao_sair; 

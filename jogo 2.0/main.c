@@ -1,7 +1,4 @@
 ﻿
-
-// IMPORTANTE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// EU DEI O NOME QUE SERIA O MAIN.C DE JOGO 2.0 PQ SOU IDIOTA, IREI ARRUMA FUTURAMENTE, TRATEM O JOGO 2.0 COMO MAIN C
 #include <stdio.h>
 
 
@@ -13,13 +10,15 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
-
+#include "splash.h"
 #include "menu.h"
 #include "fase1.h"
 #include "fase2.h"
 
 // variavel contendo todos os estados do jogo(irei adicionar a fase 3 futuramente)
 enum GameState {
+    TELA_SPLASH,    // <-- ADICIONADO
+    TELA_CUTSCENE,  // <-- ADICIONADO
     TELA_INICIAL,
     FASE_1,
     FASE_2,
@@ -74,7 +73,7 @@ int main() {
     
     
 
-    enum GameState estado_atual_do_jogo = TELA_INICIAL; // variavel que controla qual tela estamos
+    enum GameState estado_atual_do_jogo = TELA_SPLASH; // variavel que controla qual tela estamos
     bool rodando = true;
     int mouse_x = 0, mouse_y = 0;
     while (rodando) {
@@ -83,7 +82,11 @@ int main() {
         //usei o switch para decidir com qual funcao vou ''trabalahar'' qual funcao vai ser exibida na tela
         switch (estado_atual_do_jogo) {
 
-            
+        case TELA_SPLASH:
+            run_splash_screen(display); // Chama a função da tela de splash (que está vazia por enquanto)
+            estado_atual_do_jogo = TELA_INICIAL; // Quando ela terminar, muda o estado para o menu
+            break;
+
             case TELA_INICIAL: {
                 int escolha_menu = run_menu_screen(display, event_queue, font_principal, timer, imagem_cursor);
                 al_stop_samples();
