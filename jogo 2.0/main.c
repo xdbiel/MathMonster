@@ -17,9 +17,9 @@
 
 // variavel contendo todos os estados do jogo(irei adicionar a fase 3 futuramente)
 enum GameState {
-    TELA_SPLASH,    // <-- ADICIONADO
+    TELA_SPLASH,    
     TELA_INICIAL,
-    TELA_CUTSCENE,  // <-- ADICIONADO
+    TELA_CUTSCENE,  
     FASE_1,
     FASE_2,
     FASE_3,
@@ -47,7 +47,7 @@ int main() {
 
   
 
-    // esconde o cursordo sistema operacional
+    // esconde o cursor do sistema operacional
     al_hide_mouse_cursor(display);
 
 
@@ -83,8 +83,8 @@ int main() {
         switch (estado_atual_do_jogo) {
 
         case TELA_SPLASH:
-            run_splash_screen(display); // Chama a função da tela de splash (que está vazia por enquanto)
-            estado_atual_do_jogo = TELA_INICIAL; // Quando ela terminar, muda o estado para o menu
+            run_splash_screen(display); 
+			estado_atual_do_jogo = TELA_INICIAL; // mudar para a tela inicial apos a splash
             break;
 
             case TELA_INICIAL: {
@@ -98,7 +98,7 @@ int main() {
             }
 
             case TELA_CUTSCENE:
-                // Chama a função que vai mostrar a cutscene
+                
                 run_cutscene_screen(display, event_queue, font_principal);
 
                 // Quando a cutscene terminar, o jogo avança para a Fase 1
