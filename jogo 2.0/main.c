@@ -9,7 +9,7 @@
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
-
+#include "cutscene.h"
 #include "splash.h"
 #include "menu.h"
 #include "fase1.h"
@@ -18,8 +18,8 @@
 // variavel contendo todos os estados do jogo(irei adicionar a fase 3 futuramente)
 enum GameState {
     TELA_SPLASH,    // <-- ADICIONADO
-    TELA_CUTSCENE,  // <-- ADICIONADO
     TELA_INICIAL,
+    TELA_CUTSCENE,  // <-- ADICIONADO
     FASE_1,
     FASE_2,
     FASE_3,
@@ -90,15 +90,22 @@ int main() {
             case TELA_INICIAL: {
                 int escolha_menu = run_menu_screen(display, event_queue, font_principal, timer, imagem_cursor);
                 al_stop_samples();
-               if (escolha_menu == 1) { // 1 = jogar
-                    estado_atual_do_jogo = FASE_1; // altera apra a fase 1
-                } else { // 2 = sair
+                if (escolha_menu == 1) { estado_atual_do_jogo = TELA_CUTSCENE; }
+                else { // 2 = sair
                    rodando = false; 
                 }
                 break;
             }
 
+            case TELA_CUTSCENE:
+                // Chama a função que vai mostrar a cutscene
+                run_cutscene_screen(display, event_queue, font_principal);
+
+                // Quando a cutscene terminar, o jogo avança para a Fase 1
+                estado_atual_do_jogo = FASE_1;
+                break;
             
+
             case FASE_1: { 
               
                 int resultado_fase1 = run_fase1_screen(display);
