@@ -126,7 +126,7 @@ void run_fase2_screen(ALLEGRO_DISPLAY* display) {
 
 
 
-        //GRAVIDADE
+        //'gravidade'
     
         vel_y += GRAVIDADE;
 
@@ -137,7 +137,7 @@ void run_fase2_screen(ALLEGRO_DISPLAY* display) {
      
         pos_y += vel_y;
 
-        //CHÃO PROVISÓRIO 
+        //piso provisorio
      
         if (pos_y >= 400) {
             vel_y = 0;    
@@ -151,7 +151,7 @@ void run_fase2_screen(ALLEGRO_DISPLAY* display) {
         al_clear_to_color(al_map_rgb(173, 216, 216));
         al_clear_to_color(al_map_rgb(173, 216, 216));
         al_draw_bitmap(bg, 0, 0, 0);
-        al_draw_text(font1, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, (ALTURA_TELA / 2) - (al_get_font_line_height(font1) / 2), ALLEGRO_ALIGN_CENTER, "Fase 2");
+        al_draw_text(font2, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, (ALTURA_TELA / 2) - (al_get_font_line_height(font1) / 2), ALLEGRO_ALIGN_CENTER, "Homem sexy na tela, mulheres não olhem");
 
      
 
@@ -172,7 +172,7 @@ void run_fase2_screen(ALLEGRO_DISPLAY* display) {
         else if (estado_atual == PARADO) {
            
             frame += 0.01f; 
-            if (frame >= 4) frame = 0; // O LIMITE AQUI É 4!
+            if (frame >= 4) frame = 0; 
 
             if (direcao_personagem == DIREITA) {
                 al_draw_bitmap_region(sprite_parado_direita, 32 * (int)frame, 0, 32, 32, pos_x, pos_y, 0);

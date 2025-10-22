@@ -154,6 +154,7 @@
     <ClInclude Include="cutscene.h" />
     <ClInclude Include="fase2.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="gameover.h" />
     <ClInclude Include="jogo 2.0.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="splash.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="..\Menu\menu.c" />
     <ClCompile Include="cutscene.c" />
     <ClCompile Include="fase2.c" />
+    <ClCompile Include="gameover.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="splash.c" />
   </ItemGroup>

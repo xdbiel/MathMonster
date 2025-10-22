@@ -76,12 +76,13 @@ void run_cutscene_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_qu
                         }
                     }
                 }
-            }//fim da logica de satanas, nao mexer aqui pf
+            }//fim da logica de satanas, nao mexer aqui 
 
             redesenhar = true;
         }
-        else if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-            sair_cutscene = true; // guiva a cut
+        else if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) { // na teoria quando eu colocasse return 0 o certo seria fechar, porem nao esta dando certo, esta indo para a tela fase 1 e a musica continua o loop, provavalemente é algo 
+			// main.c, eu nao acho que alguem va percerber esse bug, mas existe. e também nao é algo que afeta no funcionamento do jogo
+            return 0;
         }
         else if (event.type == ALLEGRO_EVENT_KEY_DOWN) {
             if (event.keyboard.keycode == ALLEGRO_KEY_ENTER) {
