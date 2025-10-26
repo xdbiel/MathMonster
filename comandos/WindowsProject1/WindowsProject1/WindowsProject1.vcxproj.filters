@@ -24,53 +24,17 @@
     <ClInclude Include="Resource.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="jogo 2.0.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Menu\menu.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="fase2.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Fase1\fase1.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="splash.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="cutscene.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="gameover.h">
+    <ClInclude Include="WindowsProject1.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Menu\menu.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="fase2.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Fase1\fase1.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="splash.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="cutscene.c">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="gameover.c">
+    <ClCompile Include="WindowsProject1.c">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="jogo 2.0.rc">
+    <ResourceCompile Include="WindowsProject1.rc">
       <Filter>Arquivos de Recurso</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -78,7 +42,7 @@
     <Image Include="small.ico">
       <Filter>Arquivos de Recurso</Filter>
     </Image>
-    <Image Include="jogo 2.0.ico">
+    <Image Include="WindowsProject1.ico">
       <Filter>Arquivos de Recurso</Filter>
     </Image>
   </ItemGroup>
