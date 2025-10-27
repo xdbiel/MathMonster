@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5ff4703b-dc3c-4518-a726-8a970fb7c3c9}</ProjectGuid>
-    <RootNamespace>jogo20</RootNamespace>
+    <ProjectGuid>{cb38bcec-7fb0-423e-bd05-e6491fcd9e77}</ProjectGuid>
+    <RootNamespace>WindowsProject1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,19 +71,6 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Allegro_AddonTTF>true</Allegro_AddonTTF>
-    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
-    <Allegro_AddonAudio>true</Allegro_AddonAudio>
-    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
-    <Allegro_AddonPhysfs>true</Allegro_AddonPhysfs>
-    <Allegro_AddonDialog>true</Allegro_AddonDialog>
-    <Allegro_AddonMemfile>true</Allegro_AddonMemfile>
-    <Allegro_AddonFont>true</Allegro_AddonFont>
-    <Allegro_AddonColor>true</Allegro_AddonColor>
-    <Allegro_AddonVideo>true</Allegro_AddonVideo>
-    <Allegro_AddonImage>true</Allegro_AddonImage>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Allegro_AddonImage>true</Allegro_AddonImage>
     <Allegro_AddonTTF>true</Allegro_AddonTTF>
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
@@ -126,7 +113,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -149,32 +136,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Fase1\fase1.h" />
-    <ClInclude Include="..\Menu\menu.h" />
-    <ClInclude Include="cutscene.h" />
-    <ClInclude Include="fase2.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="gameover.h" />
-    <ClInclude Include="jogo 2.0.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="splash.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="WindowsProject1.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Fase1\fase1.c" />
-    <ClCompile Include="..\Menu\menu.c" />
-    <ClCompile Include="cutscene.c" />
-    <ClCompile Include="fase2.c" />
-    <ClCompile Include="gameover.c" />
-    <ClCompile Include="main.c" />
-    <ClCompile Include="splash.c" />
+    <ClCompile Include="WindowsProject1.c" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="jogo 2.0.rc" />
+    <ResourceCompile Include="WindowsProject1.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="jogo 2.0.ico" />
     <Image Include="small.ico" />
+    <Image Include="WindowsProject1.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
