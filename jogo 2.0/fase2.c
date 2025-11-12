@@ -49,7 +49,7 @@ void run_fase2_screen(ALLEGRO_DISPLAY* display) {
     float vel_y = 0.0f; 
     const float GRAVIDADE = 0.5f; 
 
-    const float FORCA_PULO = -8.0f; 
+    const float FORCA_PULO = -9.0f; 
     bool esta_no_chao = false;      
 
     bool tecla_direita_pressionada = false;
@@ -151,7 +151,8 @@ void run_fase2_screen(ALLEGRO_DISPLAY* display) {
         al_clear_to_color(al_map_rgb(173, 216, 216));
         al_clear_to_color(al_map_rgb(173, 216, 216));
         al_draw_bitmap(bg, 0, 0, 0);
-        al_draw_text(font2, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, (ALTURA_TELA / 2) - (al_get_font_line_height(font1) / 2), ALLEGRO_ALIGN_CENTER, "Homem sexy na tela, mulheres não olhem");
+        al_draw_text(font2, al_map_rgb(0, 0, 0), LARGURA_TELA / 2, (ALTURA_TELA / 2.2) - (al_get_font_line_height(font1) / 2), ALLEGRO_ALIGN_CENTER, "Fase 2");
+        al_draw_text(font2, al_map_rgb(0, 0, 0), LARGURA_TELA / 2, (ALTURA_TELA / 2) - (al_get_font_line_height(font1) / 2), ALLEGRO_ALIGN_CENTER, "Em construção");
 
      
 

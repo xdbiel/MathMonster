@@ -78,7 +78,7 @@ int main() {
     
     
 
-    enum GameState estado_atual_do_jogo = TELA_SPLASH; // variavel que controla qual tela estamos
+    enum GameState estado_atual_do_jogo =   TELA_SPLASH; // variavel que controla qual tela estamos
     bool rodando = true;
     int mouse_x = 0, mouse_y = 0;
     while (rodando) {
