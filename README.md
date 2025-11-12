@@ -4,11 +4,7 @@
 
 Um jogo de plataforma educativo onde a matemática é sua principal ferramenta para avançar.
 
-
-
-![Adobe Express - Untitled](https://github.com/user-attachments/assets/f80d7847-f36e-4e1b-b349-4f0173ddc0c4)
-
-
+Demonstração do MathMonster![Adobe Express - Untitled](https://github.com/user-attachments/assets/439ea05a-0fea-4ca9-b117-ba7b06c17503)
 
 
 ## 📚 Sobre o Jogo
@@ -51,7 +47,7 @@ Para compilar e jogar o MathMonster, você precisará do Visual Studio e da bibl
 
 1.  Clone o repositório para sua máquina local:
     ```bash
-    git clone [https://github.com/](https://github.com/)[SEU-USUARIO]/MathMonster.git
+    git clone https://github.com/xdbiel/MathMonster
     ```
 2.  Navegue até o diretório do projeto:
     ```bash
