@@ -1,43 +1,79 @@
-## 🛠️ Game Hacking: Memory Analysis and Interface Development
+# 👾 MathMonster
 
-This project documents the process of **reverse engineering** and the subsequent development of a modification *framework*, initially focused on implementing an **infinite ammunition** feature.
+[![status](https://img.shields.io/badge/status-em_desenvolvimento-yellow.svg)]()
 
----
+Um jogo de plataforma educativo onde a matemática é sua principal ferramenta para avançar.
 
-### 🎯 Objective
+<img width="794" height="447" alt="image" src="https://github.com/user-attachments/assets/45dcc581-192a-44a4-b476-4456ae2f040f" />
 
-The main goal was to identify and manipulate the memory address responsible for the player's ammunition counter. This was achieved by employing scanning techniques to locate a **static pointer** through repeated analysis of a **"volatile" base pointer** (also known as a *dynamic* or *floating address*).
 
----
-<img width="1362" height="530" alt="image" src="https://github.com/user-attachments/assets/5f38d42b-7bb2-4cfc-b397-5a103f76054f" />
 
-### 🧠 Reverse Engineering Methodology
 
-Identifying the static memory address was a multi-step process involving continuous observation and comparison of memory values:
+## 📚 Sobre o Jogo
 
-1.  **Initial Scan:** Using memory analysis software to identify the **volatile (dynamic) address** that held the current ammunition value.
-2.  **Pointer Tracing:** Performing successive **pointer comparisons** (chain scanning) to trace the path from the volatile address back to its base address—the **static pointer** (the address that remains constant across game sessions) which referenced it.
-3.  **Static Identification:** Once the static pointer was located, it became the target for direct manipulation of the ammunition value.
+O **MathMonster** é um jogo 2D de plataforma com 4 fases, onde você terá que derrotar inimigos e resolver equações matemáticas para avançar.
+
+Explore um mundo vibrante, pule sobre obstáculos e use sua inteligência para superar desafios que combinam ação com aprendizado.
 
 ---
 
-### 💻 Interface and Feature Development
+## ✨ Funcionalidades (Features)
 
-With the ammunition pointer successfully identified, the development of the Graphical User Interface (GUI) and the modification logic began.
+* **Plataforma 2D Clássica:** Movimentação precisa, pulos e exploração de níveis.
+* **Desafios Matemáticos:** Resolva equações para desbloquear portas, derrotar inimigos e avançar pelas fases.
+* **Combate e Inimigos:** Use suas habilidades para derrotar os monstros que bloqueiam seu caminho.
+* **4 Fases Desafiadoras:** Cada fase com um tema e desafios únicos.
 
-#### **Technologies Used:**
+---
 
-* **Graphical User Interface (GUI):** **Dear ImGui** (Immediate Mode Graphical User Interface), chosen for its lightweight nature and ease of integration.
-* **Hooking:** **MinHook**, utilized for creating **hooks** into game functions and injecting the modification code.
+## 🛠️ Tecnologias Utilizadas
 
-#### **Current Feature:**
+* **Linguagem:** C
+* **Biblioteca Gráfica:** Allegro 5
+* **Ambiente de Desenvolvimento (IDE):** Visual Studio
+* **Software Gráfico:** Photoshop
 
-* **Infinite Ammunition:** The currently implemented feature continuously reads and writes to (or intercepts the decrement of) the static address found, ensuring the ammunition value remains maximum or prevents its depletion.
+---
 
-#### **Next Steps (Roadmap):**
+## 🚀 Como Jogar (Instalação e Execução)
 
-The immediate focus is the completion of the **DLL Injector** to simplify the application of the *framework* to the target game. Subsequently, development will focus on adding new functionalities, such as:
+Para compilar e jogar o MathMonster, você precisará do Visual Studio e da biblioteca Allegro 5 configurada.
 
-* Infinite health.
-* Speed modifications (Speedhack).
-* Teleportation.
+### Pré-requisitos
+
+* [Visual Studio](https://visualstudio.microsoft.com/pt-br/) (com a carga de trabalho "Desenvolvimento para desktop com C++" instalada).
+* Um compilador C (incluído no Visual Studio).
+* Git (para clonar o repositório).
+
+### Tutorial de Instalação (com Visual Studio)
+
+1.  Clone o repositório para sua máquina local:
+    ```bash
+    git clone [https://github.com/](https://github.com/)[SEU-USUARIO]/MathMonster.git
+    ```
+2.  Navegue até o diretório do projeto:
+    ```bash
+    cd MathMonster
+    ```
+3.  Abra o arquivo de solução (`.sln`) do projeto no Visual Studio.
+
+4.  **Instalando o Allegro 5 via NuGet:**
+    * No Visual Studio, vá até o "Gerenciador de Soluções" (geralmente no painel à direita).
+    * Clique com o **botão direito** no nome do seu projeto (ex: "MathMonster").
+    * No menu, selecione **"Gerenciar Pacotes NuGet..."**.
+    * Na janela que abrir, clique na aba **"Procurar"**.
+    * Na barra de busca, digite `allegro`.
+    * Encontre o pacote `allegro` (verifique se é o oficial do Allegro 5) e o `allegro_dependencies`.
+    * Clique em "Instalar" para ambos os pacotes. O NuGet cuidará de baixar e configurar as bibliotecas e dependências para o seu projeto.
+
+5.  **Compilar e Executar:**
+    * Após a instalação dos pacotes, certifique-se de que sua configuração de compilação está correta (ex: `Debug` ou `Release` e a plataforma `x86` ou `x64`).
+    * Pressione **F5** ou clique no botão "Iniciar" (▶) na barra de ferramentas do Visual Studio.
+
+O Visual Studio irá compilar o projeto e iniciar o jogo!
+
+---
+
+## ⚠️ Status do Projeto
+
+Este jogo ainda está em **desenvolvimento**. Novas funcionalidades, fases e polimentos serão adicionados ao longo do tempo. Sinta-se à vontade para testar e acompanhar o progresso!
