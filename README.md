@@ -4,7 +4,9 @@
 
 Um jogo de plataforma educativo onde a matemática é sua principal ferramenta para avançar.
 
-<img width="794" height="447" alt="image" src="https://github.com/user-attachments/assets/45dcc581-192a-44a4-b476-4456ae2f040f" />
+
+
+![Adobe Express - Untitled](https://github.com/user-attachments/assets/f80d7847-f36e-4e1b-b349-4f0173ddc0c4)
 
 
 
