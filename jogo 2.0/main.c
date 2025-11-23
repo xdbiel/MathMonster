@@ -18,8 +18,7 @@
 #include <time.h>   
 #include "gameover.h"
 // variavel contendo todos os estados do jogo(irei adicionar a fase 3 futuramente)
-enum GameState {
-    TELA_SPLASH,    
+enum GameState { 
     TELA_INICIAL,
     TELA_CUTSCENE,  
     TELA_GAME_OVER,
@@ -47,10 +46,22 @@ int main() {
     al_reserve_samples(10); 
 
 
-    ALLEGRO_DISPLAY* display = al_create_display(800, 600);
+    ALLEGRO_DISPLAY* display = al_create_display(1366, 768);
     ALLEGRO_BITMAP* imagem_cursor = al_load_bitmap("cursor.png");
 
-  
+    ALLEGRO_MONITOR_INFO info;
+
+    // 2. Pega as informações do monitor principal (índice 0)
+    if (al_get_monitor_info(0, &info)) {
+        int largura_monitor = info.x2 - info.x1;
+        int altura_monitor = info.y2 - info.y1;
+
+        // 3. Calcula a posição X e Y para ficar no centro e aplica
+        al_set_window_position(display,
+            (largura_monitor - 1366) / 2,
+            (altura_monitor - 768) / 2
+        );
+    }
 
     // esconde o cursor do sistema operacional
     al_hide_mouse_cursor(display);
@@ -78,20 +89,23 @@ int main() {
     
     
 
-    enum GameState estado_atual_do_jogo =   TELA_SPLASH; // variavel que controla qual tela estamos
+    enum GameState estado_atual_do_jogo = FASE_1; // variavel que controla qual tela estamos
+    enum GameState checkpoint = FASE_1;
     bool rodando = true;
     int mouse_x = 0, mouse_y = 0;
+
+
+
+
+
+
     while (rodando) {
 
 
         //usei o switch para decidir com qual funcao vou ''trabalahar'' qual funcao vai ser exibida na tela
         switch (estado_atual_do_jogo) {
 
-        case TELA_SPLASH:
-            run_splash_screen(display); 
-			estado_atual_do_jogo = TELA_INICIAL; // mudar para a tela inicial apos a splash
-            break;
-
+       
             case TELA_INICIAL: {
                 int escolha_menu = run_menu_screen(display, event_queue, font_principal, timer, imagem_cursor);
                 al_stop_samples();
@@ -114,8 +128,8 @@ int main() {
             case TELA_GAME_OVER: {
                 int escolha_gameover = run_game_over_screen(display, event_queue, timer, imagem_cursor);
 
-                if (escolha_gameover == 1) { // 1 = Tentar Novamente
-                    estado_atual_do_jogo = FASE_1; // Volta para a Fase 1
+                if (escolha_gameover == 1) {
+                    estado_atual_do_jogo = checkpoint; // Agora volta para a fase certa!
                 }
                 else { // 0 = Sair do Jogo
                     rodando = false;
@@ -125,6 +139,8 @@ int main() {
 
 
             case FASE_1: {
+
+                checkpoint = FASE_1;
                 int resultado_fase1 = run_fase1_screen(display);
 
                 if (resultado_fase1 == 1) { // 1 = Venceu
@@ -140,13 +156,25 @@ int main() {
             }
 
             // é necessario implementar a fase 3 aqui futuramente
-            case FASE_2:
-                printf("BEM-VINDO À FASE 2!\n");
-                run_fase2_screen(display); 
+            case FASE_2: {
+                checkpoint = FASE_2; // <--- ATUALIZA O CHECKPOINT
 
-               
-                rodando = false;
+                // Agora capturamos o resultado, igual na Fase 1
+                int resultado_fase2 = run_fase2_screen(display);
+
+                if (resultado_fase2 == 1) {
+                    // Se ganhar a fase 2, vai para a fase 3 (ou final)
+                    estado_atual_do_jogo = FASE_3; // (Ou TELA_FINAL se não tiver fase 3 ainda)
+                }
+                else if (resultado_fase2 == 2) {
+                    // Se perder, vai para o Game Over (ISSO CONSERTA O SEU ERRO)
+                    estado_atual_do_jogo = TELA_GAME_OVER;
+                }
+                else {
+                    rodando = false;
+                }
                 break;
+            }
             
         
         }

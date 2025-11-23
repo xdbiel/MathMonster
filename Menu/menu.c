@@ -8,8 +8,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#define LARGURA_TELA 800
-#define ALTURA_TELA 600
+#define LARGURA_TELA 1366
+#define ALTURA_TELA 768
 #define FPS 60
 
 typedef enum {
@@ -66,7 +66,7 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
     static float volume_valor = 0.4f;
 
     ALLEGRO_SAMPLE* musica_fundo = al_load_sample("musica_menu.ogg");
-    ALLEGRO_BITMAP* background_menu = al_load_bitmap("menu_background.png");
+    ALLEGRO_BITMAP* background_menu = al_load_bitmap("tela_menu.png");
     ALLEGRO_BITMAP* img_jogar_normal = al_load_bitmap("botao_jogar_normal.png");
     ALLEGRO_BITMAP* img_jogar_selecionado = al_load_bitmap("botao_jogar_selecionado.png");
     ALLEGRO_BITMAP* img_sair_normal = al_load_bitmap("botao_sair_normal.png");
@@ -536,7 +536,7 @@ void inicializar_botoes(Botao* b_jogar, Botao* b_opcoes, Botao* b_sair, MenuEsta
     float largura_botao = 180; // largura
     float altura_botao = 180;  // altura
     float espacamento = 30;    // espacamento entre os botões
-    float y_pos = 500;         // y
+    float y_pos = 660;         // y
     // botao opcao
     b_opcoes->largura = largura_botao;
     b_opcoes->altura = altura_botao;

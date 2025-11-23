@@ -5,8 +5,8 @@
 #include <stdio.h>
 
 #include "gameover.h"
-#define LARGURA_TELA 800
-#define ALTURA_TELA 600
+#define LARGURA_TELA 1366
+#define ALTURA_TELA 768
 
 struct BotaoGameOver {
     float x, y, largura, altura;
@@ -18,18 +18,25 @@ struct BotaoGameOver {
 int run_game_over_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_TIMER* timer, ALLEGRO_BITMAP* cursor_img) {
 
 
-    ALLEGRO_BITMAP* background = al_load_bitmap("gameoverscreen.png");
-    ALLEGRO_BITMAP* btn_normal = al_load_bitmap("botao_tentenovamente_normal.png");
-    ALLEGRO_BITMAP* btn_selecionado = al_load_bitmap("botao_tentenovamente_selecionado.png");
+    ALLEGRO_BITMAP* background = al_load_bitmap("gameover.png");
+    ALLEGRO_BITMAP* btn_normal = al_load_bitmap("botao_tente_novamente_normal.png");
+    ALLEGRO_BITMAP* btn_selecionado = al_load_bitmap("botao_tente_novamente_selecionado.png");
     ALLEGRO_SAMPLE* musica_gameover = al_load_sample("gameoverscreen_music.ogg");
 
   
 
     struct BotaoGameOver botao_tentar_novamente;
-    botao_tentar_novamente.largura = 180;
-    botao_tentar_novamente.altura = 40;
-    botao_tentar_novamente.x = 310;
-    botao_tentar_novamente.y = 500;
+
+    // Pega o tamanho real da imagem nova
+    botao_tentar_novamente.largura = al_get_bitmap_width(btn_normal);
+    botao_tentar_novamente.altura = al_get_bitmap_height(btn_normal);
+
+    // Centraliza no eixo X (Horizontal)
+    botao_tentar_novamente.x = (LARGURA_TELA / 2) - (botao_tentar_novamente.largura / 2);
+
+    // Centraliza no eixo Y (Vertical) e desce um pouquinho (+ 50 pixels) para não ficar em cima do texto "GAME OVER"
+    botao_tentar_novamente.y = (ALTURA_TELA / 2) - (botao_tentar_novamente.altura / 2) + 240;
+
     botao_tentar_novamente.img_normal = btn_normal;
     botao_tentar_novamente.img_selecionado = btn_selecionado;
     botao_tentar_novamente.selecionado = false;
@@ -52,6 +59,18 @@ int run_game_over_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_qu
         else if (evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
             resultado = 0;
             return 0;
+        }
+        else if (evento.type == ALLEGRO_EVENT_KEY_DOWN) {
+            // Se apertar ENTER ou Z
+            if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER || evento.keyboard.keycode == ALLEGRO_KEY_Z) {
+                resultado = 1; // 1 = Tentar Novamente
+                rodando = false; // Sai do loop
+            }
+            // Opcional: Se apertar ESC, sai do jogo
+            else if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
+                resultado = 0; // 0 = Sair
+                rodando = false;
+            }
         }
         else if (evento.type == ALLEGRO_EVENT_MOUSE_AXES) {
           

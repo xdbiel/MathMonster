@@ -3,7 +3,8 @@
 #include <stdio.h>
 
 #include "splash.h"
-
+#define LARGURA_TELA 1366
+#define ALTURA_TELA 768
 void run_splash_screen(ALLEGRO_DISPLAY* display) {
 
  

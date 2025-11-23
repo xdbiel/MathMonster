@@ -7,8 +7,8 @@
 #include <allegro5/allegro_acodec.h>
 #include "cutscene.h"
 #include <string.h>
-#define LARGURA_TELA 800
-#define ALTURA_TELA 600
+#define LARGURA_TELA 1366
+#define ALTURA_TELA 768
 void run_cutscene_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_FONT* font) {
     printf("Cutscene: Carregando recursos...\n");
 

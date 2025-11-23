@@ -3,6 +3,6 @@
 
 #include <allegro5/allegro.h>
 
-void run_fase2_screen(ALLEGRO_DISPLAY* display);
+int  run_fase2_screen(ALLEGRO_DISPLAY* display);
 
 #endif
