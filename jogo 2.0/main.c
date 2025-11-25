@@ -44,6 +44,7 @@ int main() {
     al_install_audio();
     al_init_acodec_addon(); 
     al_reserve_samples(10); 
+   
 
 
     ALLEGRO_DISPLAY* display = al_create_display(1366, 768);
@@ -89,7 +90,7 @@ int main() {
     
     
 
-    enum GameState estado_atual_do_jogo = FASE_1; // variavel que controla qual tela estamos
+    enum GameState estado_atual_do_jogo = FASE_2; // variavel que controla qual tela estamos
     enum GameState checkpoint = FASE_1;
     bool rodando = true;
     int mouse_x = 0, mouse_y = 0;
