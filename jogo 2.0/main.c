@@ -90,7 +90,7 @@ int main() {
     
     
 
-    enum GameState estado_atual_do_jogo = FASE_2; // variavel que controla qual tela estamos
+    enum GameState estado_atual_do_jogo = TELA_INICIAL; // variavel que controla qual tela estamos
     enum GameState checkpoint = FASE_1;
     bool rodando = true;
     int mouse_x = 0, mouse_y = 0;
