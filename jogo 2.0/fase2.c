@@ -128,10 +128,6 @@ int run_fase2_screen(ALLEGRO_DISPLAY* display) {
     ALLEGRO_FONT* font_cubo = al_load_ttf_font("joystix.ttf", 13, 0);
 
 
-    if (!sprite_andar_direita || !bg || !bmp_inimigo_parado || !bmp_inimigo_atirando || !bmp_tiro || !bmp_relogio || !img_tutorial) {
-        printf("Erro ao carregar imagens (verifique se tutorial_fase_2.jpg esta na pasta).\n");
-        return 0;
-    }
 
     ALLEGRO_TIMER* timer = al_create_timer(1.0 / 60.0);
     ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
@@ -570,7 +566,7 @@ int run_fase2_screen(ALLEGRO_DISPLAY* display) {
 
     
                 if (mostrar_popup_tempo) {
-                    al_draw_text(font2, al_map_rgb(255, 255, 0), popup_x_fixo, popup_y_flutuante, 0, "+15s");
+                    al_draw_text(font2, al_map_rgb(255, 215, 0), popup_x_fixo, popup_y_flutuante, 0, "+15s");
                 }
             }
 

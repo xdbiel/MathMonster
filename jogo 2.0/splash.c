@@ -16,16 +16,15 @@ void run_splash_screen(ALLEGRO_DISPLAY* display) {
 
     
 
-	// algettime para verificar o tempo que passou
+
     double start_time = al_get_time();
     double elapsed_time = 0;
     int frame_index = 0;
 
-    // o loop tem 4 sec de duracao, 1 sec cada imagem, fiz isso pra simular um carregamento rsrsrs so pra ficar daora
     while (elapsed_time < 4.0) {
         elapsed_time = al_get_time() - start_time;
 
-        // Decide qual imagem mostrar
+
         if (elapsed_time < 1.0) {
             frame_index = 0; 
         }
@@ -39,7 +38,7 @@ void run_splash_screen(ALLEGRO_DISPLAY* display) {
             frame_index = 3; 
         }
 
-        // desenha a tela
+
         al_draw_bitmap(frames_carregamento[frame_index], 0, 0, 0);
         al_flip_display();
     }
