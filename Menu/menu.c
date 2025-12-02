@@ -42,6 +42,9 @@ typedef struct {
     int selecionado;
     float valor; // volume (0.0 a 1.0)
     int ativo;   // música (ligado/desligado)
+    ALLEGRO_BITMAP* img_ligado;    // sprite para música ligada
+    ALLEGRO_BITMAP* img_desligado; // sprite para música desligada
+    ALLEGRO_BITMAP* img_atual;     // sprite atual baseado no estado
 } Opcao;
 
 void desenhar_menu(ALLEGRO_BITMAP* bg, ALLEGRO_FONT* font, Botao* botao_jogar, Botao* botao_opcoes, Botao* botao_sair);
@@ -55,7 +58,10 @@ void inicializar_botoes(Botao* b_jogar, Botao* b_opcoes, Botao* b_sair, MenuEsta
 // Funcoes pra tela de opcoes
 void desenhar_tela_opcoes(ALLEGRO_BITMAP* bg, ALLEGRO_FONT* font, Opcao* musica, Opcao* volume, Opcao* voltar);
 void processar_teclado_opcoes(ALLEGRO_EVENT* evento, OpcoesEstado* estado_opcoes, Opcao* musica, Opcao* volume, Opcao* voltar);
-void inicializar_opcoes(Opcao* musica, Opcao* volume, Opcao* voltar, OpcoesEstado estado_inicial, int musica_ativa, float volume_valor);
+void inicializar_opcoes(Opcao* musica, Opcao* volume, Opcao* voltar, OpcoesEstado estado_inicial, int musica_ativa, float volume_valor,
+    ALLEGRO_BITMAP* musica_lig, ALLEGRO_BITMAP* musica_desl,
+    ALLEGRO_BITMAP* volume_img,
+    ALLEGRO_BITMAP* voltar_img);
 
 int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, ALLEGRO_FONT* font, ALLEGRO_TIMER* timer, ALLEGRO_BITMAP* cursor_img) {
     int mouse_x = 0, mouse_y = 0;
@@ -74,6 +80,14 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
     ALLEGRO_BITMAP* img_opcoes_normal = al_load_bitmap("botao_opcoes_normal.png");
     ALLEGRO_BITMAP* img_opcoes_selecionado = al_load_bitmap("botao_opcoes_selecionado.png");
     ALLEGRO_BITMAP* icone = al_load_bitmap("logol.png");
+
+    // Carregar imagens para as opções
+    ALLEGRO_BITMAP* img_musica_ligado = al_load_bitmap("botao_musica_ligado.png");
+    ALLEGRO_BITMAP* img_musica_desligado = al_load_bitmap("botao_musica_desligado.png");
+
+    ALLEGRO_BITMAP* img_volume = al_load_bitmap("botao_volume.png");
+
+    ALLEGRO_BITMAP* img_voltar = al_load_bitmap("botao_voltar.png");
 
     if (!musica_fundo) {
         fprintf(stderr, "Erro ao carregar a amostra de áudio 'musica_menu.ogg'\n");
@@ -136,6 +150,11 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
             case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
                 if (estado_menu == MENU_JOGAR) {
                     al_destroy_sample(musica_fundo);
+                    // Liberar bitmaps das opções
+                    if (img_musica_ligado) al_destroy_bitmap(img_musica_ligado);
+                    if (img_musica_desligado) al_destroy_bitmap(img_musica_desligado);
+                    if (img_volume) al_destroy_bitmap(img_volume);
+                    if (img_voltar) al_destroy_bitmap(img_voltar);
                     return 1; // jogar
                 }
                 else if (estado_menu == MENU_OPCOES) {
@@ -143,16 +162,29 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
                     em_opcoes = 1;
                     estado_opcoes = OPCOES_MUSICA;
                     inicializar_opcoes(&opcao_musica, &opcao_volume, &opcao_voltar,
-                        estado_opcoes, musica_ativa, volume_valor);
+                        estado_opcoes, musica_ativa, volume_valor,
+                        img_musica_ligado, img_musica_desligado,
+                        img_volume,
+                        img_voltar);
                 }
                 else if (estado_menu == MENU_SAIR) {
                     al_destroy_sample(musica_fundo);
+                    // Liberar bitmaps das opções
+                    if (img_musica_ligado) al_destroy_bitmap(img_musica_ligado);
+                    if (img_musica_desligado) al_destroy_bitmap(img_musica_desligado);
+                    if (img_volume) al_destroy_bitmap(img_volume);
+                    if (img_voltar) al_destroy_bitmap(img_voltar);
                     return 2; // sair
                 }
                 break;
 
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
                 al_destroy_sample(musica_fundo);
+                // Liberar bitmaps das opções
+                if (img_musica_ligado) al_destroy_bitmap(img_musica_ligado);
+                if (img_musica_desligado) al_destroy_bitmap(img_musica_desligado);
+                if (img_volume) al_destroy_bitmap(img_volume);
+                if (img_voltar) al_destroy_bitmap(img_voltar);
                 return 2;
 
             case ALLEGRO_EVENT_TIMER:
@@ -165,6 +197,11 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
                 if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER) {
                     if (estado_menu == MENU_JOGAR) {
                         al_destroy_sample(musica_fundo);
+                        // Liberar bitmaps das opções
+                        if (img_musica_ligado) al_destroy_bitmap(img_musica_ligado);
+                        if (img_musica_desligado) al_destroy_bitmap(img_musica_desligado);
+                        if (img_volume) al_destroy_bitmap(img_volume);
+                        if (img_voltar) al_destroy_bitmap(img_voltar);
                         return 1;
                     }
                     else if (estado_menu == MENU_OPCOES) {
@@ -172,15 +209,28 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
                         em_opcoes = 1;
                         estado_opcoes = OPCOES_MUSICA;
                         inicializar_opcoes(&opcao_musica, &opcao_volume, &opcao_voltar,
-                            estado_opcoes, musica_ativa, volume_valor);
+                            estado_opcoes, musica_ativa, volume_valor,
+                            img_musica_ligado, img_musica_desligado,
+                            img_volume,
+                            img_voltar);
                     }
                     else if (estado_menu == MENU_SAIR) {
                         al_destroy_sample(musica_fundo);
+                        // Liberar bitmaps das opções
+                        if (img_musica_ligado) al_destroy_bitmap(img_musica_ligado);
+                        if (img_musica_desligado) al_destroy_bitmap(img_musica_desligado);
+                        if (img_volume) al_destroy_bitmap(img_volume);
+                        if (img_voltar) al_destroy_bitmap(img_voltar);
                         return 2;
                     }
                 }
                 else if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
                     al_destroy_sample(musica_fundo);
+                    // Liberar bitmaps das opções
+                    if (img_musica_ligado) al_destroy_bitmap(img_musica_ligado);
+                    if (img_musica_desligado) al_destroy_bitmap(img_musica_desligado);
+                    if (img_volume) al_destroy_bitmap(img_volume);
+                    if (img_voltar) al_destroy_bitmap(img_voltar);
                     return 2;
                 }
                 break;
@@ -219,6 +269,14 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
                     musica_ativa = !musica_ativa;
                     opcao_musica.ativo = musica_ativa;
 
+                    // Atualiza o sprite atual baseado no estado
+                    if (musica_ativa && opcao_musica.img_ligado) {
+                        opcao_musica.img_atual = opcao_musica.img_ligado;
+                    }
+                    else if (!musica_ativa && opcao_musica.img_desligado) {
+                        opcao_musica.img_atual = opcao_musica.img_desligado;
+                    }
+
                     // aplica a mudança na música
                     if (musica_ativa) {
                         al_stop_samples();
@@ -235,6 +293,11 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
 
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
                 al_destroy_sample(musica_fundo);
+                // Liberar bitmaps das opções
+                if (img_musica_ligado) al_destroy_bitmap(img_musica_ligado);
+                if (img_musica_desligado) al_destroy_bitmap(img_musica_desligado);
+                if (img_volume) al_destroy_bitmap(img_volume);
+                if (img_voltar) al_destroy_bitmap(img_voltar);
                 return 2;
 
             case ALLEGRO_EVENT_TIMER:
@@ -248,6 +311,14 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
                     if (estado_opcoes == OPCOES_MUSICA) {
                         musica_ativa = !musica_ativa;
                         opcao_musica.ativo = musica_ativa;
+
+                        // Atualiza o sprite atual baseado no estado
+                        if (musica_ativa && opcao_musica.img_ligado) {
+                            opcao_musica.img_atual = opcao_musica.img_ligado;
+                        }
+                        else if (!musica_ativa && opcao_musica.img_desligado) {
+                            opcao_musica.img_atual = opcao_musica.img_desligado;
+                        }
 
                         if (musica_ativa) {
                             al_stop_samples();
@@ -297,27 +368,49 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
     al_destroy_bitmap(img_opcoes_normal);
     al_destroy_bitmap(img_opcoes_selecionado);
     al_destroy_bitmap(icone);
+    // Liberar bitmaps das opções
+    if (img_musica_ligado) al_destroy_bitmap(img_musica_ligado);
+    if (img_musica_desligado) al_destroy_bitmap(img_musica_desligado);
+    if (img_volume) al_destroy_bitmap(img_volume);
+    if (img_voltar) al_destroy_bitmap(img_voltar);
     return 2;
 }
 
-// --------------- NOVAS FUNÇÕES PARA TELA DE OPÇÕES ----------------
+// --------------- TELA DE OPÇÕES ----------------
 
 void inicializar_opcoes(Opcao* musica, Opcao* volume, Opcao* voltar,
-    OpcoesEstado estado_inicial, int musica_ativa, float volume_valor) {
+    OpcoesEstado estado_inicial, int musica_ativa, float volume_valor,
+    ALLEGRO_BITMAP* musica_lig, ALLEGRO_BITMAP* musica_desl,
+    ALLEGRO_BITMAP* volume_img,
+    ALLEGRO_BITMAP* voltar_img) {
+
     float largura = 400;
-    float altura = 50;
-    float espacamento = 20;
+    float altura = 100;
+    float espacamento = 60;
     float y_inicial = 200;
 
     // Musica
     musica->x = (LARGURA_TELA - largura) / 2;
-    musica->y = y_inicial;
+    musica->y = y_inicial + 45;
     musica->largura = largura;
     musica->altura = altura;
     strcpy(musica->texto, "Musica");
     musica->selecionado = (estado_inicial == OPCOES_MUSICA);
     musica->ativo = musica_ativa;
     musica->valor = 0.0f;
+    musica->img_ligado = musica_lig;
+    musica->img_desligado = musica_desl;
+
+    // Define o sprite inicial baseado no estado da música
+    if (musica_ativa && musica_lig) {
+        musica->img_atual = musica_lig;
+    }
+    else if (!musica_ativa && musica_desl) {
+        musica->img_atual = musica_desl;
+    }
+    else {
+        musica->img_atual = NULL;
+    }
 
     // Volume
     volume->x = (LARGURA_TELA - largura) / 2;
@@ -328,6 +421,9 @@ void inicializar_opcoes(Opcao* musica, Opcao* volume, Opcao* voltar,
     volume->selecionado = (estado_inicial == OPCOES_VOLUME);
     volume->valor = volume_valor;
     volume->ativo = 0;
+    volume->img_atual = volume_img; // Sprite único para volume
+    volume->img_ligado = NULL;
+    volume->img_desligado = NULL;
 
     // Voltar
     voltar->x = (LARGURA_TELA - largura) / 2;
@@ -338,19 +434,19 @@ void inicializar_opcoes(Opcao* musica, Opcao* volume, Opcao* voltar,
     voltar->selecionado = (estado_inicial == OPCOES_VOLTAR);
     voltar->valor = 0.0f;
     voltar->ativo = 0;
+    voltar->img_atual = voltar_img; // Sprite único para voltar
+    voltar->img_ligado = NULL;
+    voltar->img_desligado = NULL;
 }
 
 void desenhar_tela_opcoes(ALLEGRO_BITMAP* bg, ALLEGRO_FONT* font,
     Opcao* musica, Opcao* volume, Opcao* voltar) {
     al_draw_bitmap(bg, 0, 0, 0);
 
-    ALLEGRO_COLOR cor_fundo_cinza = al_map_rgb(120, 120, 120);
-
     // Título
-    al_draw_text(font, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, 25,
+    al_draw_text(font, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, 40,
         ALLEGRO_ALIGN_CENTER, "CONFIGURACOES");
 
-    ALLEGRO_COLOR cor_normal = al_map_rgb(200, 200, 200);
     ALLEGRO_COLOR cor_selecionado = al_map_rgb(255, 255, 0);
     ALLEGRO_COLOR cor_texto = al_map_rgb(255, 255, 255);
     ALLEGRO_COLOR cor_verde = al_map_rgb(0, 255, 0);
@@ -360,67 +456,40 @@ void desenhar_tela_opcoes(ALLEGRO_BITMAP* bg, ALLEGRO_FONT* font,
         font_pequena = font;
     }
 
-    // Desenhar opcao Música
-    ALLEGRO_COLOR cor_musica = musica->selecionado ? cor_selecionado : cor_normal;
-    al_draw_rectangle(musica->x, musica->y, musica->x + musica->largura,
-        musica->y + musica->altura, cor_musica, 2);
+    // Desenha botão musica
+    if (musica->img_atual) {
+        al_draw_bitmap(musica->img_atual, musica->x, musica->y, 0);
+    }
 
-    // cor cinza do fundo
-    al_draw_filled_rectangle(musica->x, musica->y,
-        musica->x + musica->largura,
-        musica->y + musica->altura, cor_fundo_cinza);
-
-    char texto_musica[100];
-    sprintf(texto_musica, "Musica: %s", musica->ativo ? "LIGADA" : "DESLIGADA");
-    al_draw_text(font_pequena, cor_texto, musica->x + 10,
-        musica->y + musica->altura / 2 - 12, ALLEGRO_ALIGN_LEFT, texto_musica);
-
+    // Indicador de seleção (seta)
     if (musica->selecionado) {
         al_draw_text(font_pequena, cor_selecionado, musica->x - 30,
             musica->y + musica->altura / 2 - 12, ALLEGRO_ALIGN_CENTER, ">");
     }
 
-    // Desenhar opcao Volume
-    ALLEGRO_COLOR cor_volume = volume->selecionado ? cor_selecionado : cor_normal;
-    al_draw_rectangle(volume->x, volume->y, volume->x + volume->largura,
-        volume->y + volume->altura, cor_volume, 2);
+    // Desenha botão volume
+    if (volume->img_atual) {
+        al_draw_bitmap(volume->img_atual, volume->x, volume->y, 0);
+    }
 
-    // cor cinza do fundo
-    al_draw_filled_rectangle(volume->x, volume->y,
-        volume->x + volume->largura,
-        volume->y + volume->altura, cor_fundo_cinza);
-
-    // Barra de volume
-    float barra_largura = 200;
-    float barra_x = volume->x + 165;
-    float barra_y = volume->y + volume->altura / 2 - 5;
+    // Barra do volume()
+    float barra_largura = 250;
+    float barra_x = volume->x + 40;
+    float barra_y = volume->y + volume->altura /  2 - (-74);
 
     al_draw_rectangle(barra_x, barra_y, barra_x + barra_largura, barra_y + 10, cor_texto, 1);
     al_draw_filled_rectangle(barra_x, barra_y, barra_x + (barra_largura * volume->valor),
         barra_y + 10, cor_verde);
-
-    char texto_volume[50];
-    sprintf(texto_volume, "Volume: %d%%", (int)(volume->valor * 100));
-    al_draw_text(font_pequena, cor_texto, volume->x + 10,
-        volume->y + volume->altura / 2 - 12, ALLEGRO_ALIGN_LEFT, texto_volume);
 
     if (volume->selecionado) {
         al_draw_text(font_pequena, cor_selecionado, volume->x - 30,
             volume->y + volume->altura / 2 - 12, ALLEGRO_ALIGN_CENTER, ">");
     }
 
-    // desenha opcao "Voltar"
-    ALLEGRO_COLOR cor_voltar = voltar->selecionado ? cor_selecionado : cor_normal;
-    al_draw_rectangle(voltar->x, voltar->y, voltar->x + voltar->largura,
-        voltar->y + voltar->altura, cor_voltar, 2);
-
-    // cor cinza do fundo
-    al_draw_filled_rectangle(voltar->x, voltar->y,
-        voltar->x + voltar->largura,
-        voltar->y + voltar->altura, cor_fundo_cinza);
-
-    al_draw_text(font_pequena, cor_texto, voltar->x + voltar->largura / 2,
-        voltar->y + voltar->altura / 2 - 12, ALLEGRO_ALIGN_CENTER, voltar->texto);
+    // Desenhar opcao "Voltar" (sprite único)
+    if (voltar->img_atual) {
+        al_draw_bitmap(voltar->img_atual, voltar->x, voltar->y, 0);
+    }
 
     if (voltar->selecionado) {
         al_draw_text(font_pequena, cor_selecionado, voltar->x - 30,
