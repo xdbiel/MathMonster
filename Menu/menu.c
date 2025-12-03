@@ -150,16 +150,16 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
             case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
                 if (estado_menu == MENU_JOGAR) {
                     al_destroy_sample(musica_fundo);
-<<<<<<< HEAD
+
                     return 1; 
-=======
+
                     // Liberar bitmaps das opções
                     if (img_musica_ligado) al_destroy_bitmap(img_musica_ligado);
                     if (img_musica_desligado) al_destroy_bitmap(img_musica_desligado);
                     if (img_volume) al_destroy_bitmap(img_volume);
                     if (img_voltar) al_destroy_bitmap(img_voltar);
                     return 1; // jogar
->>>>>>> 3ee129b426660e093feec2a1b0e02fd875e5628b
+
                 }
                 else if (estado_menu == MENU_OPCOES) {
                 
