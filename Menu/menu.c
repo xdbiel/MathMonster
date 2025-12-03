@@ -79,7 +79,7 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
         fprintf(stderr, "Erro ao carregar a amostra de áudio 'musica_menu.ogg'\n");
     }
     else if (musica_ativa) {
-        // aqui usa o volume_valor em vez de valor fixo
+ 
         al_play_sample(musica_fundo, volume_valor, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, NULL);
     }
 
@@ -91,7 +91,7 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
         img_opcoes_normal, img_opcoes_selecionado,
         img_sair_normal, img_sair_selecionado);
 
-    //Variaveis para tela de opcoes
+  
     int em_opcoes = 0;
     Opcao opcao_musica, opcao_volume, opcao_voltar;
     OpcoesEstado estado_opcoes = OPCOES_MUSICA;
@@ -106,7 +106,7 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
         al_wait_for_event(event_queue, &evento);
 
         if (!em_opcoes) {
-            // ---------- LÓGICA DO MENU PRINCIPAL ------------
+     
             switch (evento.type) {
             case ALLEGRO_EVENT_MOUSE_AXES:
                 mouse_x = evento.mouse.x;
@@ -136,10 +136,10 @@ int run_menu_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_queue, 
             case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
                 if (estado_menu == MENU_JOGAR) {
                     al_destroy_sample(musica_fundo);
-                    return 1; // jogar
+                    return 1; 
                 }
                 else if (estado_menu == MENU_OPCOES) {
-                    // entrar na tela de opções
+                
                     em_opcoes = 1;
                     estado_opcoes = OPCOES_MUSICA;
                     inicializar_opcoes(&opcao_musica, &opcao_volume, &opcao_voltar,

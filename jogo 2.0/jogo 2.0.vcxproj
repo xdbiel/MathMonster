@@ -153,21 +153,25 @@
     <ClInclude Include="..\Menu\menu.h" />
     <ClInclude Include="cutscene.h" />
     <ClInclude Include="fase2.h" />
+    <ClInclude Include="fase3.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="gameover.h" />
     <ClInclude Include="jogo 2.0.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="splash.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="tela_final.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Fase1\fase1.c" />
     <ClCompile Include="..\Menu\menu.c" />
     <ClCompile Include="cutscene.c" />
     <ClCompile Include="fase2.c" />
+    <ClCompile Include="fase3.c" />
     <ClCompile Include="gameover.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="splash.c" />
+    <ClCompile Include="tela_final.c" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="jogo 2.0.rc" />

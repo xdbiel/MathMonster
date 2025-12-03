@@ -27,14 +27,14 @@ int run_game_over_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_qu
 
     struct BotaoGameOver botao_tentar_novamente;
 
-    // Pega o tamanho real da imagem nova
+
     botao_tentar_novamente.largura = al_get_bitmap_width(btn_normal);
     botao_tentar_novamente.altura = al_get_bitmap_height(btn_normal);
 
-    // Centraliza no eixo X (Horizontal)
+
     botao_tentar_novamente.x = (LARGURA_TELA / 2) - (botao_tentar_novamente.largura / 2);
 
-    // Centraliza no eixo Y (Vertical) e desce um pouquinho (+ 50 pixels) para não ficar em cima do texto "GAME OVER"
+
     botao_tentar_novamente.y = (ALTURA_TELA / 2) - (botao_tentar_novamente.altura / 2) + 240;
 
     botao_tentar_novamente.img_normal = btn_normal;
@@ -61,14 +61,14 @@ int run_game_over_screen(ALLEGRO_DISPLAY* display, ALLEGRO_EVENT_QUEUE* event_qu
             return 0;
         }
         else if (evento.type == ALLEGRO_EVENT_KEY_DOWN) {
-            // Se apertar ENTER ou Z
+
             if (evento.keyboard.keycode == ALLEGRO_KEY_ENTER || evento.keyboard.keycode == ALLEGRO_KEY_Z) {
-                resultado = 1; // 1 = Tentar Novamente
-                rodando = false; // Sai do loop
+                resultado = 1; 
+                rodando = false; 
             }
-            // Opcional: Se apertar ESC, sai do jogo
+
             else if (evento.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
-                resultado = 0; // 0 = Sair
+                resultado = 0;
                 rodando = false;
             }
         }
